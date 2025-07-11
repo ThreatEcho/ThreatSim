@@ -1,0 +1,167 @@
+{
+  "statistical_analysis": {
+    "trial_summary": {
+      "total_trials": 3,
+      "successful_trials": 3,
+      "success_rate": 1.0
+    },
+    "team_performance": {
+      "red_team": {
+        "mean_win_rate": 48.666666666666664,
+        "std_win_rate": 8.055363982396383,
+        "mean_reward": 11.361884435017904,
+        "std_reward": 5.423010050437505,
+        "performance_consistency": 0.16552117772047362,
+        "win_condition_consistency": 1.0,
+        "confidence_interval": [
+          42.0,
+          60.0
+        ]
+      },
+      "blue_team": {
+        "mean_win_rate": 72.0,
+        "std_win_rate": 22.464787260658994,
+        "mean_reward": 10.873666445414225,
+        "std_reward": 2.702536943264868,
+        "performance_consistency": 0.3120109341758194,
+        "win_condition_consistency": 1.0,
+        "confidence_interval": [
+          45.0,
+          100.0
+        ]
+      }
+    },
+    "statistical_tests": {
+      "win_rate_t_statistic": -1.3826865456407333,
+      "win_rate_p_value": 0.23894119256126073,
+      "win_rate_effect_size": -1.1289588370104269,
+      "reward_t_statistic": 0.11395158052002509,
+      "reward_p_value": 0.9147667257061048,
+      "reward_effect_size": 0.09304107588591094,
+      "significant_difference": false,
+      "statistical_power": 0.718123974061534,
+      "effect_size_interpretation": "large"
+    },
+    "sample_size_analysis": {
+      "current_sample_size": 3,
+      "recommended_sample_size": 5,
+      "sample_size_adequate": true,
+      "confidence_level": 0.8
+    },
+    "metrics": {
+      "overall_win_condition_consistency": 1.0,
+      "balance_deviation": 16.666666666666664,
+      "competitive_balance": 0.23333333333333336
+    }
+  },
+  "balance_validation": {
+    "scenario_name": "Enterprise network with balanced parameters for effective RL training",
+    "validation_timestamp": "2025-07-11T13:07:57.463519",
+    "target_source": "experiment_config",
+    "balance_metrics": {
+      "red_win_rate": 0.48666666666666664,
+      "blue_win_rate": 0.72,
+      "target_red_win_rate": 0.32,
+      "default_target_red_win_rate": 0.32,
+      "deviation": 0.16666666666666663,
+      "within_tolerance": false,
+      "confidence_interval": [
+        0.4301064613131707,
+        0.5432268720201625
+      ]
+    },
+    "statistical_validation": {
+      "sufficient_episodes": true,
+      "statistically_significant": false,
+      "p_value": 0.23894119256126073,
+      "effect_size": -1.1289588370104269,
+      "confidence_level": 0.95,
+      "statistical_power": 1.0
+    },
+    "balance_assessment": {
+      "balance_category": "moderate_imbalance",
+      "balance_quality_score": 0.6,
+      "confidence_level": 0.8,
+      "confidence_interval": [
+        0.4301064613131707,
+        0.5432268720201625
+      ],
+      "bias_direction": "red_favored",
+      "bias_severity": 0.5555555555555555,
+      "deviation_magnitude": 0.16666666666666663,
+      "systematic_issue_detected": false,
+      "requires_intervention": true,
+      "statistical_reliability": false,
+      "adjustment_urgency": "medium",
+      "scenario_target_used": 0.32
+    },
+    "recommendations": [
+      {
+        "priority": "medium",
+        "type": "methodology_improvement",
+        "action": "improve_statistical_validation",
+        "description": "Increase episode count and multi-seed validation for statistical significance",
+        "scientific_basis": "Current results lack statistical significance for reliable conclusions",
+        "confidence_level": 0.95,
+        "expected_impact": "Enable confident balance assessment and adjustments",
+        "risk_assessment": "none"
+      },
+      {
+        "priority": "medium",
+        "type": "balanced_adjustment",
+        "action": "reduce_red_advantage",
+        "description": "Apply 10.0% conservative increase to defensive capabilities",
+        "scientific_basis": "Observed 16.7% Red team over-advantage vs scenario target of 32.0%",
+        "confidence_level": 0.8,
+        "expected_impact": "Reduce Red win rate by 6.0%",
+        "risk_assessment": "low",
+        "adjustment_magnitude": 0.1
+      }
+    ],
+    "scientific_integrity": {
+      "empirical_parameters_preserved": true,
+      "conservative_adjustments_only": true,
+      "bias_mitigation_applied": true,
+      "adjustment_magnitude_limited": true,
+      "statistical_validation_required": true,
+      "scenario_specific_target_used": true
+    }
+  },
+  "experiment_config": {
+    "name": "threatsim_enterprise_scenario_quick_20250711_130617",
+    "mode": "quick",
+    "scenario_name": "enterprise_scenario",
+    "scenario_file": "scenarios/enterprise_scenario.yaml",
+    "output_dir": "outputs/20250711_130617_enterprise_scenario_quick",
+    "model_dir": "outputs/20250711_130617_enterprise_scenario_quick/models",
+    "expected_red_win_rate": 0.32,
+    "target_value": 8.0,
+    "timesteps": 5000,
+    "max_steps_per_episode": 20,
+    "seeds": [
+      42,
+      123,
+      456
+    ],
+    "description": "Quick validation (5k steps, 3 seeds)"
+  },
+  "scenario_info": {
+    "name": "Enterprise network with balanced parameters for effective RL training",
+    "file": "scenarios/enterprise_scenario.yaml",
+    "difficulty": "realistic",
+    "attack_type": "enterprise_compromise",
+    "expected_red_win_rate": 0.32,
+    "description": "Enterprise network with balanced parameters for effective RL training",
+    "target_value": 8.0,
+    "total_value": 39.5,
+    "statistics": {
+      "total_nodes": 7,
+      "total_value": 39.5,
+      "target_value": 8.0,
+      "target_percentage": 20.253164556962027,
+      "avg_exploitability": 0.765625,
+      "avg_detection_prob": 0.240625,
+      "total_vulnerabilities": 16
+    }
+  }
+}

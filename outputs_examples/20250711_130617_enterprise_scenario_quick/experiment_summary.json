@@ -1,0 +1,56 @@
+{
+  "experiment_info": {
+    "scenario_name": "enterprise_scenario",
+    "mode": "quick",
+    "timestamp": "2025-07-11T13:08:30.700215",
+    "total_trials": 3,
+    "successful_trials": 3
+  },
+  "performance_summary": {
+    "red_team": {
+      "win_rate": 48.666666666666664,
+      "avg_reward": 11.361884435017904,
+      "confidence_interval": [
+        42.0,
+        60.0
+      ],
+      "win_condition_consistency": 1.0
+    },
+    "blue_team": {
+      "win_rate": 72.0,
+      "avg_reward": 10.873666445414225,
+      "confidence_interval": [
+        45.0,
+        100.0
+      ],
+      "win_condition_consistency": 1.0
+    }
+  },
+  "balance_assessment": {
+    "target_red_win_rate": 0.32,
+    "actual_red_win_rate": 0.48666666666666664,
+    "deviation": 0.16666666666666663,
+    "within_tolerance": false,
+    "balance_category": "moderate_imbalance",
+    "competitive_balance": 0.23333333333333336
+  },
+  "recommendations": [
+    {
+      "priority": "medium",
+      "action": "improve_statistical_validation",
+      "description": "Increase episode count and multi-seed validation for statistical significance"
+    },
+    {
+      "priority": "medium",
+      "action": "reduce_red_advantage",
+      "description": "Apply 10.0% conservative increase to defensive capabilities"
+    }
+  ],
+  "visualization_files": {
+    "training_overview": "plots/training_overview.png",
+    "performance_analysis": "plots/performance_analysis.png",
+    "balance_analysis": "plots/balance_analysis.png",
+    "statistical_dashboard": "plots/statistical_dashboard.png",
+    "publication_figure": "plots/publication_figure.png"
+  }
+}
