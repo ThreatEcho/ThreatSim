@@ -1,0 +1,238 @@
+{
+  "system_config": {
+    "version": "0.3.2",
+    "name": "ThreatSim Cybersecurity Training System",
+    "random_seed": 42,
+    "device": "cpu",
+    "output_directory": "outputs",
+    "created": "2025-07-10T19:00:00Z",
+    "description": "Cybersecurity simulation framework for Red vs Blue team training with scenario-specific balance validation"
+  },
+  "environment_mechanics": {
+    "success_probability": {
+      "defense_calculation_mode": "additive",
+      "max_defense_reduction": 0.50,
+      "min_success_probability": 0.25,
+      "max_success_probability": 0.90,
+      "stealth_threshold": 0.35,
+      "noise_impact_factor": 0.35,
+      "compromise_level_bonus": 0.08
+    },
+    "detection_system": {
+      "alert_increase_detection": 0.12,
+      "alert_increase_prevention": 0.08,
+      "alert_decay_rate": 0.06,
+      "noise_level_cap": 1.0,
+      "noise_reduction_monitor": 0.06,
+      "noise_reduction_alert": 0.10
+    },
+    "prevention_system": {
+      "base_prevention_probability": 0.1
+    },
+    "tactic_prerequisites": {
+      "permissive_mode": true
+    }
+  },
+  "win_conditions": {
+    "red_team": {
+      "primary_success_threshold": 0.60,
+      "partial_success_threshold": 0.40,
+      "significant_progress_threshold": 0.30,
+      "node_compromise_threshold": 0.35,
+      "tactical_success_threshold": 8
+    },
+    "blue_team": {
+      "prevention_threshold": 0.70,
+      "detection_effectiveness_threshold": 0.80,
+      "time_based_success": false,
+      "require_complete_prevention": false
+    }
+  },
+  "reward_structure": {
+    "red_team_rewards": {
+      "initial_access_reward": 8.0,
+      "privilege_escalation_multiplier": 2.5,
+      "lateral_movement_bonus": 4.0,
+      "impact_multiplier": 1.8,
+      "base_tactic_reward": 1.0,
+      "progress_bonus": 1.5,
+      "stealth_bonus_multiplier": 1.15,
+      "chain_bonus_multiplier": 1.3,
+      "win_bonus": 15.0,
+      "efficiency_bonus": 4.0
+    },
+    "red_team_penalties": {
+      "invalid_action_penalty": -2.0,
+      "detection_penalty": -1,
+      "prevention_penalty": -2,
+      "failure_penalty": -0.8,
+      "time_penalty_factor": 0.004,
+      "loss_penalty": 8.0
+    },
+    "blue_team_rewards": {
+      "detection_reward": 1,
+      "prevention_reward": 3,
+      "containment_reward": 2,
+      "isolation_reward": 2,
+      "remediation_reward": 2,
+      "win_bonus": 15.0
+    },
+    "blue_team_penalties": {
+      "ineffective_response_penalty": -2.5,
+      "false_positive_penalty": -1,
+      "loss_penalty": 10
+    }
+  },
+  "security_controls": {
+    "default_controls": {
+      "edr": 0.50,
+      "firewall": 0.30,
+      "logging": 0.50,
+      "dlp": 0.20,
+      "mfa": 0.20
+    },
+    "control_effectiveness_caps": {
+      "maximum_single_control": 0.25,
+      "maximum_combined_reduction": 0.50,
+      "minimum_attack_success": 0.25
+    }
+  },
+  "blue_team_responses": {
+    "response_types": {
+      "monitor": {
+        "effectiveness": 0.45,
+        "noise_reduction": 0.06,
+        "cost": 0.1
+      },
+      "alert": {
+        "effectiveness": 0.45,
+        "alert_level_increase": 0.15,
+        "noise_reduction": 0.10,
+        "cost": 0.2
+      },
+      "block": {
+        "effectiveness": 0.50,
+        "control_improvement": 0.08,
+        "cost": 0.5
+      },
+      "isolate": {
+        "effectiveness": 0.55,
+        "compromise_reduction": 1,
+        "cost": 0.8
+      },
+      "remediate": {
+        "effectiveness": 0.60,
+        "success_probability": 0.25,
+        "cost": 1.0
+      }
+    }
+  },
+  "heuristic_opponents": {
+    "blue_team_policies": {
+      "passive": {
+        "detection_capability": 0.25,
+        "response_speed": 0.30,
+        "threat_prediction": 0.10
+      },
+      "aggressive": {
+        "detection_capability": 0.70,
+        "response_speed": 0.70,
+        "threat_prediction": 0.45
+      },
+      "heuristic": {
+        "detection_capability": 0.40,
+        "response_speed": 0.20,
+        "threat_prediction": 0.10
+      }
+    },
+    "red_team_strategies": {
+      "apt": {
+        "stealth_priority": 0.75,
+        "aggressiveness": 0.35,
+        "success_probability_base": 0.45
+      },
+      "ransomware": {
+        "stealth_priority": 0.25,
+        "aggressiveness": 0.85,
+        "success_probability_base": 0.55
+      },
+      "insider": {
+        "stealth_priority": 0.85,
+        "aggressiveness": 0.45,
+        "success_probability_base": 0.65
+      }
+    }
+  },
+  "training_configurations": {
+    "ppo_hyperparameters": {
+      "learning_rate": 3e-4,
+      "n_steps": 256,
+      "batch_size": 64,
+      "n_epochs": 4,
+      "gamma": 0.99,
+      "gae_lambda": 0.95,
+      "clip_range": 0.2,
+      "ent_coef": 0.01,
+      "vf_coef": 0.5,
+      "max_grad_norm": 0.5
+    },
+    "training_modes": {
+      "ultra_fast": {
+        "timesteps": 500,
+        "max_steps_per_episode": 10,
+        "seeds": [42],
+        "description": "Ultra Fast validation (500 steps, 1 seed)"
+      },
+      "quick": {
+        "timesteps": 5000,
+        "max_steps_per_episode": 20,
+        "seeds": [42, 123, 456],
+        "description": "Quick validation (5k steps, 3 seeds)"
+      },
+      "standard": {
+        "timesteps": 20000,
+        "max_steps_per_episode": 50,
+        "seeds": [42, 123, 456, 789, 999],
+        "description": "Standard training (20k steps, 5 seeds)"
+      },
+      "research": {
+        "timesteps": 100000,
+        "max_steps_per_episode": 100,
+        "seeds": [42, 123, 456, 789, 999, 111, 222],
+        "description": "Research-grade training (100k steps, 7 seeds)"
+      }
+    }
+  },
+  "scenario_validation": {
+    "realism_thresholds": {
+      "min_exploitability": 0.15,
+      "max_exploitability": 0.90,
+      "min_detection": 0.10,
+      "max_detection": 0.95,
+      "min_target_percentage": 20.0,
+      "max_target_percentage": 75.0
+    },
+    "statistical_requirements": {
+      "minimum_episodes": 100,
+      "confidence_level": 0.95,
+      "effect_size_threshold": 0.3
+    },
+    "balance_validation": {
+      "use_scenario_specific_targets": true,
+      "default_target_red_win_rate": 0.30,
+      "fallback_tolerance": 0.15,
+      "target_source_priority": ["experiment_config", "scenario_info", "default"],
+      "auto_adjustment_enabled": false,
+      "statistical_significance_required": true,
+      "scenario_target_logging": true
+    }
+  },
+  "debug_settings": {
+    "enabled": false,
+    "verbose_security_calculations": false,
+    "log_balance_metrics": true,
+    "track_win_condition_progress": true,
+    "defense_calculation_debugging": false,
+    "scenario_target_debugging": true
+  }
+}

@@ -1,0 +1,512 @@
+{
+  "schema_version": "1.0",
+  "description": "MITRE ATT&CK Framework integration for ThreatSim",
+  "last_updated": "2024-01-09",
+  "source": "MITRE ATT&CK Enterprise Matrix v13.1",
+  
+  "tactics": {
+    "RECONNAISSANCE": {
+      "id": 1,
+      "description": "Information gathering to plan future adversary operations",
+      "mitre_id": "TA0043"
+    },
+    "INITIAL_ACCESS": {
+      "id": 2,
+      "description": "Gain an initial foothold within a network",
+      "mitre_id": "TA0001"
+    },
+    "EXECUTION": {
+      "id": 3,
+      "description": "Run malicious code on a local or remote system",
+      "mitre_id": "TA0002"
+    },
+    "PERSISTENCE": {
+      "id": 4,
+      "description": "Maintain access to systems across restarts",
+      "mitre_id": "TA0003"
+    },
+    "PRIVILEGE_ESCALATION": {
+      "id": 5,
+      "description": "Gain higher-level permissions on a system",
+      "mitre_id": "TA0004"
+    },
+    "DEFENSE_EVASION": {
+      "id": 6,
+      "description": "Avoid being detected throughout their compromise",
+      "mitre_id": "TA0005"
+    },
+    "CREDENTIAL_ACCESS": {
+      "id": 7,
+      "description": "Steal account names and passwords",
+      "mitre_id": "TA0006"
+    },
+    "DISCOVERY": {
+      "id": 8,
+      "description": "Figure out the environment and internal network",
+      "mitre_id": "TA0007"
+    },
+    "LATERAL_MOVEMENT": {
+      "id": 9,
+      "description": "Move through the environment and remote systems",
+      "mitre_id": "TA0008"
+    },
+    "COLLECTION": {
+      "id": 10,
+      "description": "Gather information of interest to achieve objectives",
+      "mitre_id": "TA0009"
+    },
+    "EXFILTRATION": {
+      "id": 11,
+      "description": "Steal data from the network",
+      "mitre_id": "TA0010"
+    },
+    "IMPACT": {
+      "id": 12,
+      "description": "Manipulate, interrupt, or destroy systems and data",
+      "mitre_id": "TA0040"
+    }
+  },
+  
+  "technique_tactic_mapping": {
+    "T1190": "INITIAL_ACCESS",
+    "T1133": "INITIAL_ACCESS",
+    "T1566": "INITIAL_ACCESS",
+    "T1200": "INITIAL_ACCESS",
+    "T1078": "INITIAL_ACCESS",
+    "T1091": "INITIAL_ACCESS",
+    "T1195": "INITIAL_ACCESS",
+    "T1199": "INITIAL_ACCESS",
+    "T1566.001": "INITIAL_ACCESS",
+    "T1566.002": "INITIAL_ACCESS",
+    "T1566.003": "INITIAL_ACCESS",
+    "T1566.004": "INITIAL_ACCESS",
+    
+    "T1059": "EXECUTION",
+    "T1106": "EXECUTION",
+    "T1204": "EXECUTION",
+    "T1559": "EXECUTION",
+    "T1072": "EXECUTION",
+    "T1129": "EXECUTION",
+    "T1569": "EXECUTION",
+    "T1059.001": "EXECUTION",
+    "T1059.002": "EXECUTION",
+    "T1059.003": "EXECUTION",
+    "T1059.004": "EXECUTION",
+    "T1059.005": "EXECUTION",
+    "T1059.006": "EXECUTION",
+    "T1059.007": "EXECUTION",
+    "T1059.008": "EXECUTION",
+    "T1204.001": "EXECUTION",
+    "T1204.002": "EXECUTION",
+    "T1204.003": "EXECUTION",
+    
+    "T1543": "PERSISTENCE",
+    "T1546": "PERSISTENCE",
+    "T1547": "PERSISTENCE",
+    "T1574": "PERSISTENCE",
+    "T1136": "PERSISTENCE",
+    "T1197": "PERSISTENCE",
+    "T1505": "PERSISTENCE",
+    "T1053": "PERSISTENCE",
+    "T1543.001": "PERSISTENCE",
+    "T1543.002": "PERSISTENCE",
+    "T1543.003": "PERSISTENCE",
+    "T1543.004": "PERSISTENCE",
+    "T1546.001": "PERSISTENCE",
+    "T1546.002": "PERSISTENCE",
+    "T1546.003": "PERSISTENCE",
+    "T1546.004": "PERSISTENCE",
+    "T1546.005": "PERSISTENCE",
+    "T1546.006": "PERSISTENCE",
+    "T1546.007": "PERSISTENCE",
+    "T1546.008": "PERSISTENCE",
+    "T1546.009": "PERSISTENCE",
+    "T1546.010": "PERSISTENCE",
+    "T1546.011": "PERSISTENCE",
+    "T1546.012": "PERSISTENCE",
+    "T1546.013": "PERSISTENCE",
+    "T1546.014": "PERSISTENCE",
+    "T1546.015": "PERSISTENCE",
+    
+    "T1548": "PRIVILEGE_ESCALATION",
+    "T1055": "PRIVILEGE_ESCALATION",
+    "T1068": "PRIVILEGE_ESCALATION",
+    "T1134": "PRIVILEGE_ESCALATION",
+    "T1484": "PRIVILEGE_ESCALATION",
+    "T1611": "PRIVILEGE_ESCALATION",
+    "T1055.001": "PRIVILEGE_ESCALATION",
+    "T1055.002": "PRIVILEGE_ESCALATION",
+    "T1055.003": "PRIVILEGE_ESCALATION",
+    "T1055.004": "PRIVILEGE_ESCALATION",
+    "T1055.005": "PRIVILEGE_ESCALATION",
+    "T1055.008": "PRIVILEGE_ESCALATION",
+    "T1055.009": "PRIVILEGE_ESCALATION",
+    "T1055.011": "PRIVILEGE_ESCALATION",
+    "T1055.012": "PRIVILEGE_ESCALATION",
+    "T1055.013": "PRIVILEGE_ESCALATION",
+    "T1055.014": "PRIVILEGE_ESCALATION",
+    "T1134.001": "PRIVILEGE_ESCALATION",
+    "T1134.002": "PRIVILEGE_ESCALATION",
+    "T1134.003": "PRIVILEGE_ESCALATION",
+    "T1134.004": "PRIVILEGE_ESCALATION",
+    "T1134.005": "PRIVILEGE_ESCALATION",
+    
+    "T1027": "DEFENSE_EVASION",
+    "T1070": "DEFENSE_EVASION",
+    "T1202": "DEFENSE_EVASION",
+    "T1218": "DEFENSE_EVASION",
+    "T1036": "DEFENSE_EVASION",
+    "T1112": "DEFENSE_EVASION",
+    "T1562": "DEFENSE_EVASION",
+    "T1620": "DEFENSE_EVASION",
+    "T1553": "DEFENSE_EVASION",
+    "T1027.001": "DEFENSE_EVASION",
+    "T1027.002": "DEFENSE_EVASION",
+    "T1027.003": "DEFENSE_EVASION",
+    "T1027.004": "DEFENSE_EVASION",
+    "T1027.005": "DEFENSE_EVASION",
+    "T1027.006": "DEFENSE_EVASION",
+    "T1027.007": "DEFENSE_EVASION",
+    "T1027.008": "DEFENSE_EVASION",
+    "T1027.009": "DEFENSE_EVASION",
+    "T1027.010": "DEFENSE_EVASION",
+    "T1036.001": "DEFENSE_EVASION",
+    "T1036.002": "DEFENSE_EVASION",
+    "T1036.003": "DEFENSE_EVASION",
+    "T1036.004": "DEFENSE_EVASION",
+    "T1036.005": "DEFENSE_EVASION",
+    "T1036.006": "DEFENSE_EVASION",
+    "T1036.007": "DEFENSE_EVASION",
+    "T1036.008": "DEFENSE_EVASION",
+    "T1036.009": "DEFENSE_EVASION",
+    
+    "T1003": "CREDENTIAL_ACCESS",
+    "T1110": "CREDENTIAL_ACCESS",
+    "T1555": "CREDENTIAL_ACCESS",
+    "T1212": "CREDENTIAL_ACCESS",
+    "T1187": "CREDENTIAL_ACCESS",
+    "T1056": "CREDENTIAL_ACCESS",
+    "T1557": "CREDENTIAL_ACCESS",
+    "T1558": "CREDENTIAL_ACCESS",
+    "T1003.001": "CREDENTIAL_ACCESS",
+    "T1003.002": "CREDENTIAL_ACCESS",
+    "T1003.003": "CREDENTIAL_ACCESS",
+    "T1003.004": "CREDENTIAL_ACCESS",
+    "T1003.005": "CREDENTIAL_ACCESS",
+    "T1003.006": "CREDENTIAL_ACCESS",
+    "T1003.007": "CREDENTIAL_ACCESS",
+    "T1003.008": "CREDENTIAL_ACCESS",
+    "T1110.001": "CREDENTIAL_ACCESS",
+    "T1110.002": "CREDENTIAL_ACCESS",
+    "T1110.003": "CREDENTIAL_ACCESS",
+    "T1110.004": "CREDENTIAL_ACCESS",
+    "T1555.001": "CREDENTIAL_ACCESS",
+    "T1555.002": "CREDENTIAL_ACCESS",
+    "T1555.003": "CREDENTIAL_ACCESS",
+    "T1555.004": "CREDENTIAL_ACCESS",
+    "T1555.005": "CREDENTIAL_ACCESS",
+    "T1555.006": "CREDENTIAL_ACCESS",
+    "T1056.001": "CREDENTIAL_ACCESS",
+    "T1056.002": "CREDENTIAL_ACCESS",
+    "T1056.003": "CREDENTIAL_ACCESS",
+    "T1056.004": "CREDENTIAL_ACCESS",
+    
+    "T1087": "DISCOVERY",
+    "T1010": "DISCOVERY",
+    "T1018": "DISCOVERY",
+    "T1083": "DISCOVERY",
+    "T1135": "DISCOVERY",
+    "T1046": "DISCOVERY",
+    "T1057": "DISCOVERY",
+    "T1012": "DISCOVERY",
+    "T1049": "DISCOVERY",
+    "T1082": "DISCOVERY",
+    "T1016": "DISCOVERY",
+    "T1033": "DISCOVERY",
+    "T1007": "DISCOVERY",
+    "T1124": "DISCOVERY",
+    "T1087.001": "DISCOVERY",
+    "T1087.002": "DISCOVERY",
+    "T1087.003": "DISCOVERY",
+    "T1087.004": "DISCOVERY",
+    "T1016.001": "DISCOVERY",
+    "T1016.002": "DISCOVERY",
+    
+    "T1021": "LATERAL_MOVEMENT",
+    "T1210": "LATERAL_MOVEMENT",
+    "T1534": "LATERAL_MOVEMENT",
+    "T1570": "LATERAL_MOVEMENT",
+    "T1021.001": "LATERAL_MOVEMENT",
+    "T1021.002": "LATERAL_MOVEMENT",
+    "T1021.003": "LATERAL_MOVEMENT",
+    "T1021.004": "LATERAL_MOVEMENT",
+    "T1021.005": "LATERAL_MOVEMENT",
+    "T1021.006": "LATERAL_MOVEMENT",
+    "T1021.007": "LATERAL_MOVEMENT",
+    "T1021.008": "LATERAL_MOVEMENT",
+    
+    "T1005": "COLLECTION",
+    "T1039": "COLLECTION",
+    "T1025": "COLLECTION",
+    "T1074": "COLLECTION",
+    "T1114": "COLLECTION",
+    "T1056": "COLLECTION",
+    "T1113": "COLLECTION",
+    "T1125": "COLLECTION",
+    "T1119": "COLLECTION",
+    "T1185": "COLLECTION",
+    "T1213": "COLLECTION",
+    "T1560": "COLLECTION",
+    "T1074.001": "COLLECTION",
+    "T1074.002": "COLLECTION",
+    "T1114.001": "COLLECTION",
+    "T1114.002": "COLLECTION",
+    "T1114.003": "COLLECTION",
+    "T1213.001": "COLLECTION",
+    "T1213.002": "COLLECTION",
+    "T1213.003": "COLLECTION",
+    "T1560.001": "COLLECTION",
+    "T1560.002": "COLLECTION",
+    "T1560.003": "COLLECTION",
+    
+    "T1020": "EXFILTRATION",
+    "T1030": "EXFILTRATION",
+    "T1048": "EXFILTRATION",
+    "T1041": "EXFILTRATION",
+    "T1011": "EXFILTRATION",
+    "T1052": "EXFILTRATION",
+    "T1567": "EXFILTRATION",
+    "T1029": "EXFILTRATION",
+    "T1071": "EXFILTRATION",
+    "T1048.001": "EXFILTRATION",
+    "T1048.002": "EXFILTRATION",
+    "T1048.003": "EXFILTRATION",
+    "T1011.001": "EXFILTRATION",
+    "T1052.001": "EXFILTRATION",
+    "T1567.001": "EXFILTRATION",
+    "T1567.002": "EXFILTRATION",
+    "T1567.003": "EXFILTRATION",
+    "T1071.001": "EXFILTRATION",
+    "T1071.002": "EXFILTRATION",
+    "T1071.003": "EXFILTRATION",
+    "T1071.004": "EXFILTRATION",
+    
+    "T1485": "IMPACT",
+    "T1486": "IMPACT",
+    "T1565": "IMPACT",
+    "T1491": "IMPACT",
+    "T1561": "IMPACT",
+    "T1499": "IMPACT",
+    "T1495": "IMPACT",
+    "T1490": "IMPACT",
+    "T1498": "IMPACT",
+    "T1489": "IMPACT",
+    "T1529": "IMPACT",
+    "T1531": "IMPACT",
+    "T1565.001": "IMPACT",
+    "T1565.002": "IMPACT",
+    "T1565.003": "IMPACT",
+    "T1491.001": "IMPACT",
+    "T1491.002": "IMPACT",
+    "T1561.001": "IMPACT",
+    "T1561.002": "IMPACT",
+    "T1499.001": "IMPACT",
+    "T1499.002": "IMPACT",
+    "T1499.003": "IMPACT",
+    "T1499.004": "IMPACT",
+    "T1498.001": "IMPACT",
+    "T1498.002": "IMPACT"
+  },
+  
+  "default_vulnerabilities": {
+    "implicit_vulnerability_template": {
+      "exploitability": 0.5,
+      "detection_prob": 0.5,
+      "noise_level": 0.3,
+      "description": "Generic vulnerability for unmapped techniques"
+    },
+    "tactic_specific_vulnerabilities": {
+      "INITIAL_ACCESS": {
+        "exploitability": 0.4,
+        "detection_prob": 0.6,
+        "noise_level": 0.4,
+        "description": "Initial access attempts typically monitored"
+      },
+      "EXECUTION": {
+        "exploitability": 0.6,
+        "detection_prob": 0.5,
+        "noise_level": 0.5,
+        "description": "Code execution varies by environment"
+      },
+      "PERSISTENCE": {
+        "exploitability": 0.5,
+        "detection_prob": 0.7,
+        "noise_level": 0.3,
+        "description": "Persistence mechanisms often detected"
+      },
+      "PRIVILEGE_ESCALATION": {
+        "exploitability": 0.3,
+        "detection_prob": 0.8,
+        "noise_level": 0.6,
+        "description": "Privilege escalation heavily monitored"
+      },
+      "DEFENSE_EVASION": {
+        "exploitability": 0.7,
+        "detection_prob": 0.3,
+        "noise_level": 0.2,
+        "description": "Evasion techniques designed to avoid detection"
+      },
+      "CREDENTIAL_ACCESS": {
+        "exploitability": 0.5,
+        "detection_prob": 0.6,
+        "noise_level": 0.4,
+        "description": "Credential access attempts monitored"
+      },
+      "DISCOVERY": {
+        "exploitability": 0.8,
+        "detection_prob": 0.3,
+        "noise_level": 0.2,
+        "description": "Discovery activities often appear normal"
+      },
+      "LATERAL_MOVEMENT": {
+        "exploitability": 0.4,
+        "detection_prob": 0.6,
+        "noise_level": 0.5,
+        "description": "Lateral movement through network monitoring"
+      },
+      "COLLECTION": {
+        "exploitability": 0.7,
+        "detection_prob": 0.4,
+        "noise_level": 0.3,
+        "description": "Data collection can appear as normal access"
+      },
+      "EXFILTRATION": {
+        "exploitability": 0.5,
+        "detection_prob": 0.7,
+        "noise_level": 0.6,
+        "description": "Data exfiltration typically monitored"
+      },
+      "IMPACT": {
+        "exploitability": 0.6,
+        "detection_prob": 0.9,
+        "noise_level": 0.8,
+        "description": "Impact operations immediately visible"
+      }
+    }
+  },
+  
+  "security_control_mappings": {
+    "control_effectiveness_by_tactic": {
+      "INITIAL_ACCESS": {
+        "primary_controls": ["firewall", "edr", "logging"],
+        "effectiveness_multipliers": {
+          "firewall": 0.8,
+          "edr": 0.7,
+          "logging": 0.5,
+          "dlp": 0.6,
+          "mfa": 0.9
+        }
+      },
+      "EXECUTION": {
+        "primary_controls": ["edr", "logging"],
+        "effectiveness_multipliers": {
+          "edr": 0.9,
+          "logging": 0.7,
+          "firewall": 0.3,
+          "dlp": 0.4,
+          "mfa": 0.2
+        }
+      },
+      "PERSISTENCE": {
+        "primary_controls": ["edr", "logging"],
+        "effectiveness_multipliers": {
+          "edr": 0.8,
+          "logging": 0.9,
+          "firewall": 0.2,
+          "dlp": 0.3,
+          "mfa": 0.6
+        }
+      },
+      "PRIVILEGE_ESCALATION": {
+        "primary_controls": ["edr", "logging", "mfa"],
+        "effectiveness_multipliers": {
+          "edr": 0.9,
+          "logging": 0.8,
+          "mfa": 0.9,
+          "firewall": 0.2,
+          "dlp": 0.3
+        }
+      },
+      "DEFENSE_EVASION": {
+        "primary_controls": ["edr"],
+        "effectiveness_multipliers": {
+          "edr": 0.6,
+          "logging": 0.4,
+          "firewall": 0.2,
+          "dlp": 0.3,
+          "mfa": 0.1
+        }
+      },
+      "CREDENTIAL_ACCESS": {
+        "primary_controls": ["edr", "logging", "mfa"],
+        "effectiveness_multipliers": {
+          "edr": 0.7,
+          "logging": 0.8,
+          "mfa": 0.9,
+          "firewall": 0.3,
+          "dlp": 0.4
+        }
+      },
+      "DISCOVERY": {
+        "primary_controls": ["edr", "logging"],
+        "effectiveness_multipliers": {
+          "edr": 0.5,
+          "logging": 0.6,
+          "firewall": 0.4,
+          "dlp": 0.2,
+          "mfa": 0.1
+        }
+      },
+      "LATERAL_MOVEMENT": {
+        "primary_controls": ["firewall", "edr", "logging"],
+        "effectiveness_multipliers": {
+          "firewall": 0.8,
+          "edr": 0.7,
+          "logging": 0.6,
+          "dlp": 0.4,
+          "mfa": 0.7
+        }
+      },
+      "COLLECTION": {
+        "primary_controls": ["dlp", "logging"],
+        "effectiveness_multipliers": {
+          "dlp": 0.9,
+          "logging": 0.7,
+          "edr": 0.5,
+          "firewall": 0.3,
+          "mfa": 0.4
+        }
+      },
+      "EXFILTRATION": {
+        "primary_controls": ["dlp", "firewall", "logging"],
+        "effectiveness_multipliers": {
+          "dlp": 0.9,
+          "firewall": 0.8,
+          "logging": 0.7,
+          "edr": 0.6,
+          "mfa": 0.3
+        }
+      },
+      "IMPACT": {
+        "primary_controls": ["edr", "logging"],
+        "effectiveness_multipliers": {
+          "edr": 0.8,
+          "logging": 0.9,
+          "firewall": 0.4,
+          "dlp": 0.5,
+          "mfa": 0.3
+        }
+      }
+    }
+  }
+}
