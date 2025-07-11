@@ -1,3 +1,0 @@
-team,mean_win_rate,std_win_rate,mean_reward,std_reward,confidence_interval_lower,confidence_interval_upper
-red_team,27.0,19.30457631409368,2.0304669539133706,4.088137613813737,0.0,44.0
-blue_team,100.0,0.0,12.91333293914795,0.07732707895224578,100.0,100.0
