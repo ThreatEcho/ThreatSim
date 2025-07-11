@@ -136,7 +136,7 @@ ThreatSim generates comprehensive outputs:
 
 ## Testing & Validation
 
-```bash
+```
 # Run complete test suite
 python run_tests.py
 
@@ -144,9 +144,6 @@ python run_tests.py
 python tests/minimal_test.py      # Basic functionality
 python tests/debug_training.py   # System validation
 python tests/test_all_scenarios.py # Scenario compatibility
-
-# System verification
-python run_system_check.py
 ```
 
 ## Research Applications
