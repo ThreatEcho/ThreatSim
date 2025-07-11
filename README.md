@@ -99,7 +99,7 @@ ThreatSim employs rigorous balance validation:
 | **Standard** | 20,000 | 3 | ~20 min | Regular experiments |
 | **Research** | 100,000 | 5 | ~2 hours | Publication-quality results |
 
-## 🛠Architecture
+## Architecture
 
 ```
 threatsim/
