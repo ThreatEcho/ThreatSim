@@ -1,0 +1,51 @@
+{
+  "experiment_info": {
+    "scenario_name": "insider_threat_scenario",
+    "mode": "quick",
+    "timestamp": "2025-07-11T13:01:26.874496",
+    "total_trials": 3,
+    "successful_trials": 3
+  },
+  "performance_summary": {
+    "red_team": {
+      "win_rate": 46.0,
+      "avg_reward": 6.786667346954346,
+      "confidence_interval": [
+        40.0,
+        51.0
+      ],
+      "win_condition_consistency": 1.0
+    },
+    "blue_team": {
+      "win_rate": 100.0,
+      "avg_reward": 16.5,
+      "confidence_interval": [
+        100.0,
+        100.0
+      ],
+      "win_condition_consistency": 1.0
+    }
+  },
+  "balance_assessment": {
+    "target_red_win_rate": 0.3,
+    "actual_red_win_rate": 0.46,
+    "deviation": 0.16000000000000003,
+    "within_tolerance": false,
+    "balance_category": "moderate_imbalance",
+    "competitive_balance": 0.54
+  },
+  "recommendations": [
+    {
+      "priority": "medium",
+      "action": "reduce_red_advantage",
+      "description": "Apply 10.0% conservative increase to defensive capabilities"
+    }
+  ],
+  "visualization_files": {
+    "training_overview": "plots/training_overview.png",
+    "performance_analysis": "plots/performance_analysis.png",
+    "balance_analysis": "plots/balance_analysis.png",
+    "statistical_dashboard": "plots/statistical_dashboard.png",
+    "publication_figure": "plots/publication_figure.png"
+  }
+}

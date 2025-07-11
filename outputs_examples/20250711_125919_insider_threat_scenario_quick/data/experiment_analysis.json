@@ -1,0 +1,157 @@
+{
+  "statistical_analysis": {
+    "trial_summary": {
+      "total_trials": 3,
+      "successful_trials": 3,
+      "success_rate": 1.0
+    },
+    "team_performance": {
+      "red_team": {
+        "mean_win_rate": 46.0,
+        "std_win_rate": 4.546060565661952,
+        "mean_reward": 6.786667346954346,
+        "std_reward": 1.7819286875062839,
+        "performance_consistency": 0.09882740360134677,
+        "win_condition_consistency": 1.0,
+        "confidence_interval": [
+          40.0,
+          51.0
+        ]
+      },
+      "blue_team": {
+        "mean_win_rate": 100.0,
+        "std_win_rate": 0.0,
+        "mean_reward": 16.5,
+        "std_reward": 0.0,
+        "performance_consistency": 0.0,
+        "win_condition_consistency": 1.0,
+        "confidence_interval": [
+          100.0,
+          100.0
+        ]
+      }
+    },
+    "statistical_tests": {
+      "win_rate_t_statistic": -16.79861745463289,
+      "win_rate_p_value": 7.359802644358876e-05,
+      "win_rate_effect_size": -13.716013716020575,
+      "reward_t_statistic": -7.708909380095582,
+      "reward_p_value": 0.0015239296925068186,
+      "reward_effect_size": -6.294298151529719,
+      "significant_difference": true,
+      "statistical_power": 0.0,
+      "effect_size_interpretation": "large"
+    },
+    "sample_size_analysis": {
+      "current_sample_size": 3,
+      "recommended_sample_size": 5,
+      "sample_size_adequate": true,
+      "confidence_level": 0.8
+    },
+    "metrics": {
+      "overall_win_condition_consistency": 1.0,
+      "balance_deviation": 16.0,
+      "competitive_balance": 0.54
+    }
+  },
+  "balance_validation": {
+    "scenario_name": "Malicious insider intellectual property theft - MINIMAL SECURITY MODEL",
+    "validation_timestamp": "2025-07-11T13:00:52.635277",
+    "target_source": "experiment_config",
+    "balance_metrics": {
+      "red_win_rate": 0.46,
+      "blue_win_rate": 1.0,
+      "target_red_win_rate": 0.3,
+      "default_target_red_win_rate": 0.3,
+      "deviation": 0.16000000000000003,
+      "within_tolerance": false,
+      "confidence_interval": [
+        0.4036010212858424,
+        0.5163989787141576
+      ]
+    },
+    "statistical_validation": {
+      "sufficient_episodes": true,
+      "statistically_significant": true,
+      "p_value": 7.359802644358876e-05,
+      "effect_size": -13.716013716020575,
+      "confidence_level": 0.95,
+      "statistical_power": 1.0
+    },
+    "balance_assessment": {
+      "balance_category": "moderate_imbalance",
+      "balance_quality_score": 0.6,
+      "confidence_level": 0.8,
+      "confidence_interval": [
+        0.4036010212858424,
+        0.5163989787141576
+      ],
+      "bias_direction": "red_favored",
+      "bias_severity": 0.5333333333333334,
+      "deviation_magnitude": 0.16000000000000003,
+      "systematic_issue_detected": false,
+      "requires_intervention": true,
+      "statistical_reliability": true,
+      "adjustment_urgency": "medium",
+      "scenario_target_used": 0.3
+    },
+    "recommendations": [
+      {
+        "priority": "medium",
+        "type": "balanced_adjustment",
+        "action": "reduce_red_advantage",
+        "description": "Apply 10.0% conservative increase to defensive capabilities",
+        "scientific_basis": "Observed 16.0% Red team over-advantage vs scenario target of 30.0%",
+        "confidence_level": 0.8,
+        "expected_impact": "Reduce Red win rate by 6.0%",
+        "risk_assessment": "low",
+        "adjustment_magnitude": 0.1
+      }
+    ],
+    "scientific_integrity": {
+      "empirical_parameters_preserved": true,
+      "conservative_adjustments_only": true,
+      "bias_mitigation_applied": true,
+      "adjustment_magnitude_limited": true,
+      "statistical_validation_required": true,
+      "scenario_specific_target_used": true
+    }
+  },
+  "experiment_config": {
+    "name": "threatsim_insider_threat_scenario_quick_20250711_125919",
+    "mode": "quick",
+    "scenario_name": "insider_threat_scenario",
+    "scenario_file": "scenarios/insider_threat_scenario.yaml",
+    "output_dir": "outputs/20250711_125919_insider_threat_scenario_quick",
+    "model_dir": "outputs/20250711_125919_insider_threat_scenario_quick/models",
+    "expected_red_win_rate": 0.3,
+    "target_value": 10.0,
+    "timesteps": 5000,
+    "max_steps_per_episode": 20,
+    "seeds": [
+      42,
+      123,
+      456
+    ],
+    "description": "Quick validation (5k steps, 3 seeds)"
+  },
+  "scenario_info": {
+    "name": "Malicious insider intellectual property theft - MINIMAL SECURITY MODEL",
+    "file": "scenarios/insider_threat_scenario.yaml",
+    "difficulty": "beginner",
+    "attack_type": "insider_threat",
+    "expected_red_win_rate": 0.3,
+    "description": "Malicious insider intellectual property theft - MINIMAL SECURITY MODEL",
+    "target_value": 10.0,
+    "total_value": 0.0,
+    "statistics": {
+      "total_nodes": 1,
+      "total_value": 0.0,
+      "target_value": 10.0,
+      "target_percentage": 0,
+      "avg_exploitability": 0.925,
+      "avg_detection_prob": 0.125,
+      "total_vulnerabilities": 2
+    }
+  }
+}
