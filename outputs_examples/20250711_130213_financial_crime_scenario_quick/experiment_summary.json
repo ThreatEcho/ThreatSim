@@ -1,0 +1,51 @@
+{
+  "experiment_info": {
+    "scenario_name": "financial_crime_scenario",
+    "mode": "quick",
+    "timestamp": "2025-07-11T13:04:30.030727",
+    "total_trials": 3,
+    "successful_trials": 3
+  },
+  "performance_summary": {
+    "red_team": {
+      "win_rate": 14.666666666666666,
+      "avg_reward": -2.87066642443339,
+      "confidence_interval": [
+        0.0,
+        23.0
+      ],
+      "win_condition_consistency": 1.0
+    },
+    "blue_team": {
+      "win_rate": 100.0,
+      "avg_reward": 13.894999186197916,
+      "confidence_interval": [
+        100.0,
+        100.0
+      ],
+      "win_condition_consistency": 1.0
+    }
+  },
+  "balance_assessment": {
+    "target_red_win_rate": 0.34,
+    "actual_red_win_rate": 0.14666666666666667,
+    "deviation": 0.19333333333333336,
+    "within_tolerance": false,
+    "balance_category": "moderate_imbalance",
+    "competitive_balance": 0.8533333333333333
+  },
+  "recommendations": [
+    {
+      "priority": "low",
+      "action": "reduce_blue_advantage",
+      "description": "Apply 5.0% conservative reduction to Blue team advantages"
+    }
+  ],
+  "visualization_files": {
+    "training_overview": "plots/training_overview.png",
+    "performance_analysis": "plots/performance_analysis.png",
+    "balance_analysis": "plots/balance_analysis.png",
+    "statistical_dashboard": "plots/statistical_dashboard.png",
+    "publication_figure": "plots/publication_figure.png"
+  }
+}

@@ -1,0 +1,28 @@
+ThreatSim Visualization Summary
+==================================================
+
+Training completed with 3 seeds
+Red Team: 14.7% ± 10.4% win rate
+Blue Team: 100.0% ± 0.0% win rate
+Balance Analysis:
+  Target: 34.0%, Actual: 14.7%
+  Deviation: 19.3%
+  Status: Needs Adjustment
+  Target Source: experiment_config
+Statistical Analysis: No data available
+Scenario Information:
+  Name: Business Email Compromise with wire fraud targeting
+  Difficulty: intermediate
+  Expected Red Win Rate: 34.0%
+Visualization Files Created:
+  - balance_analysis.png
+  - balance_validation.png
+  - performance_analysis.png
+  - performance_comparison.png
+  - publication_figure.png
+  - reward_distributions.png
+  - statistical_analysis.png
+  - statistical_dashboard.png
+  - training_curves.png
+  - training_overview.png
+  - win_rate_analysis.png
