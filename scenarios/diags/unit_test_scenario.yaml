@@ -1,0 +1,66 @@
+# File: scenarios/diagnostic_scenario.yaml
+# Description: EXTREME diagnostic scenario to isolate environment logic issues
+# Purpose: Test if Red team can EVER win with maximum favorable parameters
+# Modifications: EXTREME parameters to test fundamental environment logic
+#
+# Copyright (c) 2025 ThreatEcho
+# Licensed under the GNU General Public License v3.0
+
+# DIAGNOSTIC PURPOSE: If Red team can't win with these parameters, the issue is in environment logic
+
+nodes:
+  - id: DiagnosticTarget
+    value: 2.0
+    vulnerabilities:
+      - name: T1566.001        # Spearphishing Attachment
+        exploitability: 0.99     # MAXIMUM exploitability
+        detection_prob: 0.01     # MINIMUM detection
+        noise_level: 0.01        # MINIMUM noise
+      - name: T1059.001        # PowerShell
+        exploitability: 0.99     # MAXIMUM exploitability
+        detection_prob: 0.01     # MINIMUM detection
+        noise_level: 0.01        # MINIMUM noise
+      - name: T1005            # Data Collection
+        exploitability: 0.99     # MAXIMUM exploitability
+        detection_prob: 0.01     # MINIMUM detection
+        noise_level: 0.01        # MINIMUM noise
+    security_controls:
+      edr: 0.01                 # MINIMUM security controls
+      firewall: 0.01
+      logging: 0.01
+      dlp: 0.01
+      mfa: 0.01
+
+# No network connections
+edges: []
+
+# Single entry point
+entry_points:
+  - DiagnosticTarget
+
+# VERY LOW target value - should be trivial to achieve
+target_value: 0.5
+
+# Training configuration for diagnostic testing
+training_config:
+  description: "EXTREME diagnostic scenario to test environment logic"
+  difficulty: "diagnostic"
+  attack_type: "environment_test"
+  expected_red_win_rate: 0.95  # Should be 95%+ with these parameters
+  
+  # Diagnostic purpose
+  diagnostic_purpose: "Test if Red team can win with maximum favorable parameters"
+  test_criteria: "If Red team win rate < 80%, environment logic has fundamental issues"
+  
+  # EXTREME parameter justification
+  parameter_justification:
+    exploitability: "0.99 - Maximum possible success rate"
+    detection: "0.01 - Minimum possible detection"
+    security_controls: "0.01 - Minimum possible defense"
+    target_threshold: "25% - Trivial to achieve"
+  
+  # Expected outcomes
+  expected_outcomes:
+    red_win_rate: ">80% - If lower, environment logic is broken"
+    blue_win_rate: "<20% - If higher, Blue heuristic is overpowered"
+    diagnostic_conclusion: "Isolate whether issue is parameters vs environment logic"

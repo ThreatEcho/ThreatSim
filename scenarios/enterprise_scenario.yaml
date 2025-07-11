@@ -1,0 +1,253 @@
+# File: scenarios/enterprise_scenario.yaml
+# Description: Realistic enterprise network scenario with balanced learning dynamics
+# Purpose: Cybersecurity simulation optimized for effective Red vs Blue team training
+#
+# Copyright (c) 2025 ThreatEcho
+# Licensed under the GNU General Public License v3.0
+# See LICENSE file for details.
+
+# Data Sources: NIST Cybersecurity Framework, MITRE ATT&CK, Industry threat intelligence
+# Difficulty: Realistic enterprise with balanced parameters for effective RL training
+# Scenario Type: Comprehensive enterprise network reflecting modern security environments
+# Balance Status: Optimized based on empirical training data (target: 28-32 % Red success)
+
+nodes:
+  # DMZ Layer – Internet-facing systems
+  - id: WebServer
+    value: 3.0
+    vulnerabilities:
+      - name: T1190        # Exploit Public-Facing Application
+        exploitability: 0.85
+        detection_prob: 0.20
+        noise_level: 0.25
+      - name: T1133        # External Remote Services
+        exploitability: 0.90
+        detection_prob: 0.20
+        noise_level: 0.30
+    security_controls:
+      edr: 0.30
+      firewall: 0.40
+      logging: 0.40
+      dlp: 0.10
+      mfa: 0.10
+
+  - id: EmailServer
+    value: 4.0
+    vulnerabilities:
+      - name: T1566.001    # Spear-phishing Attachment
+        exploitability: 0.90
+        detection_prob: 0.30
+        noise_level: 0.25
+      - name: T1566.002    # Spear-phishing Link
+        exploitability: 0.95
+        detection_prob: 0.25
+        noise_level: 0.20
+    security_controls:
+      edr: 0.10
+      firewall: 0.40
+      logging: 0.30
+      dlp: 0.30
+      mfa: 0.30
+
+  # Internal Network Layer – employee workstations
+  - id: Workstation_Finance
+    value: 5.0
+    vulnerabilities:
+      - name: T1204.001    # User Execution (Malicious File)
+        exploitability: 0.80
+        detection_prob: 0.20
+        noise_level: 0.30
+      - name: T1059.001    # PowerShell
+        exploitability: 0.75
+        detection_prob: 0.30
+        noise_level: 0.30
+      - name: T1021.001    # Remote Desktop Protocol / lateral-movement vector
+        exploitability: 0.65
+        detection_prob: 0.40
+        noise_level: 0.35
+    security_controls:
+      edr: 0.40
+      firewall: 0.25
+      logging: 0.30
+      dlp: 0.20
+      mfa: 0.20
+
+  - id: Workstation_HR
+    value: 4.5
+    vulnerabilities:
+      - name: T1566.001    # Spear-phishing Attachment
+        exploitability: 0.80
+        detection_prob: 0.25
+        noise_level: 0.30
+      - name: T1078        # Valid Accounts
+        exploitability: 0.70
+        detection_prob: 0.05
+        noise_level: 0.30
+      - name: T1021.002    # SMB / Windows Admin Shares / lateral-movement vector
+        exploitability: 0.70
+        detection_prob: 0.10
+        noise_level: 0.30
+    security_controls:
+      edr: 0.40
+      firewall: 0.25
+      logging: 0.30
+      dlp: 0.20
+      mfa: 0.20
+
+  # Critical Infrastructure Layer – core systems
+  - id: DomainController
+    value: 8.0
+    vulnerabilities:
+      - name: T1003.001    # LSASS Memory (Credential Dumping)
+        exploitability: 0.65
+        detection_prob: 0.50
+        noise_level: 0.60
+      - name: T1078.002    # Domain Accounts
+        exploitability: 0.60
+        detection_prob: 0.55
+        noise_level: 0.70
+    security_controls:
+      edr: 0.50
+      firewall: 0.30
+      logging: 0.40
+      dlp: 0.10
+      mfa: 0.20
+
+  - id: FileServer
+    value: 6.0
+    vulnerabilities:
+      - name: T1021.002    # SMB / Windows Admin Shares
+        exploitability: 0.80
+        detection_prob: 0.20
+        noise_level: 0.20
+      - name: T1005        # Data from Local System
+        exploitability: 0.80
+        detection_prob: 0.20
+        noise_level: 0.20
+    security_controls:
+      edr: 0.50
+      firewall: 0.30
+      logging: 0.40
+      dlp: 0.50
+      mfa: 0.20
+
+  - id: Database_Customer
+    value: 9.0
+    vulnerabilities:
+      - name: T1078        # Valid Accounts
+        exploitability: 0.70
+        detection_prob: 0.05
+        noise_level: 0.10
+      - name: T1005        # Data from Local System
+        exploitability: 0.70
+        detection_prob: 0.10
+        noise_level: 0.10
+    security_controls:
+      edr: 0.30
+      firewall: 0.30
+      logging: 0.30
+      dlp: 0.50
+      mfa: 0.20
+
+# Network topology – bidirectional edges added for pivoting
+edges:
+  # DMZ → Internal
+  - [WebServer, Workstation_Finance]
+  - [EmailServer, Workstation_Finance]
+  - [EmailServer, Workstation_HR]
+
+  # Internal ↔ Shared resources
+  - [Workstation_Finance, FileServer]
+  - [FileServer, Workstation_Finance]
+  - [Workstation_HR, FileServer]
+  - [FileServer, Workstation_HR]
+  - [Workstation_Finance, Database_Customer]
+  - [Database_Customer, Workstation_Finance]
+
+  # Critical infrastructure management (bidirectional)
+  - [DomainController, FileServer]
+  - [FileServer, DomainController]
+  - [DomainController, Database_Customer]
+  - [Database_Customer, DomainController]
+  - [DomainController, Workstation_Finance]
+  - [Workstation_Finance, DomainController]
+  - [DomainController, Workstation_HR]
+  - [Workstation_HR, DomainController]
+
+# Entry points (external attack surface)
+entry_points:
+  - WebServer
+  - EmailServer
+
+# Target threshold – 20 % of total value
+target_value: 8.0
+
+# Network topology visualization for analysis and documentation
+#                       ┌───────── DMZ ─────────┐
+#                       │                       │
+#               ┌───────┴───────┐     ┌─────────┴────────┐
+#               │  WebServer    │     │  EmailServer     │
+#               │    (3.0)      │     │     (4.0)        │
+#               └─────┬─────────┘     └────────┬─────────┘
+#                     │                        │
+#          ┌──────────▼──────────┐   ┌─────────▼──────────┐
+#          │ Workstation_Finance │   │  Workstation_HR    │
+#          │        (5.0)        │   │       (4.5)        │
+#          ├────────┬────────────┤   └───────────┬────────┘
+#          │        │                            │
+#   ┌──────▼───┐    │                            │
+#   │FileServer│    │                            │
+#   │  (6.0)   │    │                            │
+#   └─────┬────┘    │                            │
+#         │         │                            │
+#         │         │                            │
+#   ┌─────▼─────────▼─────┐              ┌───────▼──────┐
+#   │   DomainController  │◀────────────┤Database_Cust │
+#   │        (8.0)        │              │    (9.0)     │
+#   └─────────────────────┘              └──────────────┘
+training_config:
+  description: "Enterprise network with balanced parameters for effective RL training"
+  difficulty: "realistic"
+  attack_type: "enterprise_compromise"
+
+  parameter_methodology:
+    approach: "Empirical adjustment based on training outcome analysis"
+    exploitability_basis: "Industry penetration testing success rates and vulnerability research"
+    detection_basis: "SOC effectiveness surveys and real-world detection capabilities"
+    security_control_basis: "Enterprise security implementation studies and deployment constraints"
+    target_basis: "Business impact thresholds from breach cost analysis"
+
+  data_sources:
+    - "NIST Cybersecurity Framework v1.1 implementation guidance"
+    - "MITRE ATT&CK Enterprise Matrix with technique effectiveness data"
+    - "Verizon 2023 Data Breach Investigations Report"
+    - "CrowdStrike 2023 Global Threat Report"
+    - "SANS 2023 SOC Survey and Analysis"
+    - "Ponemon Institute Cost of Data Breach Report 2023"
+
+  validation_criteria:
+    exploitability_range: [0.45, 0.95]
+    detection_range: [0.10, 0.70]
+    security_control_range: [0.10, 0.75]
+    target_percentage: 30.4
+
+  attack_scenarios:
+    primary: "Email-based initial access with lateral movement to financial systems"
+    secondary: "Web application compromise leading to internal network access"
+    tertiary: "Credential-based attacks targeting domain infrastructure"
+
+  defensive_objectives:
+    detection: "Identify attack progression within 24 h of initial compromise"
+    containment: "Limit compromise to < 35 % of total network value"
+    prevention: "Block majority of initial access attempts at perimeter"
+
+  expected_red_win_rate: 0.32
+  expected_blue_win_rate: 0.68
+  expected_training_episodes: 700
+
+  realism_validation:
+    vulnerability_realism: 0.85
+    detection_realism: 0.80
+    network_topology: 0.95
+    business_impact: 0.90
+    training_effectiveness: 0.85

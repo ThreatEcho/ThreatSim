@@ -1,0 +1,250 @@
+# File: scenarios/insider_threat_scenario.yaml
+# Description: Malicious insider data exfiltration scenario
+# Purpose: Insider threat simulation with legitimate access advantage
+# Modifications: Minimal security controls to reflect legitimate user access
+#
+# Copyright (c) 2025 ThreatEcho
+# Licensed under the GNU General Public License v3.0
+# See LICENSE file for details.
+
+nodes:
+  # Insider's Primary Access Point - Legitimate developer workstation
+  - id: DeveloperWorkstation_Primary
+    value: 5.0
+    vulnerabilities:
+      - name: T1078        # Valid Accounts
+        exploitability: 0.98  # Legitimate credentials - near-certain success
+        detection_prob: 0.05  # Normal user behavior - minimal detection
+        noise_level: 0.05     # Authorized activity - minimal alerts
+      - name: T1005        # Data from Local System
+        exploitability: 0.98  # Direct authorized file access
+        detection_prob: 0.05  # Legitimate file access patterns
+        noise_level: 0.05
+      - name: T1074.001    # Data Staged: Local Data Staging
+        exploitability: 0.98  # Can stage data without suspicion
+        detection_prob: 0.05  # Local staging hard to detect
+        noise_level: 0.05
+    security_controls:
+      edr: 0.00      # No EDR blocking for legitimate user
+      firewall: 0.00 # No network blocking for authorized user
+      logging: 0.05  # Minimal logging impact on legitimate activity
+      dlp: 0.05      # Minimal DLP for authorized data access
+      mfa: 0.00      # Already authenticated user
+
+  # Crown Jewel - Source Code Repository Access
+  - id: SourceCodeRepository_Enterprise
+    value: 9.0
+    vulnerabilities:
+      - name: T1213.003    # Data from Code Repositories
+        exploitability: 0.99  # Legitimate developer access
+        detection_prob: 0.05  # Normal repository access
+        noise_level: 0.05
+      - name: T1119        # Automated Collection
+        exploitability: 0.98  # Scripts appear as normal dev tools
+        detection_prob: 0.05  # Automated tools blend in
+        noise_level: 0.05
+      - name: T1087.001    # Account Discovery (Local)
+        exploitability: 0.95  # Normal administrative queries
+        detection_prob: 0.10  # Some admin activity monitoring
+        noise_level: 0.10
+    security_controls:
+      edr: 0.00      # No EDR blocking for legitimate access
+      firewall: 0.00 # No network restrictions
+      logging: 0.05  # Minimal access logging
+      dlp: 0.00      # No DLP for authorized repository access
+      mfa: 0.00      # Already authenticated
+
+  # Customer Database Access - Production data systems
+  - id: CustomerDatabase_Production
+    value: 8.5
+    vulnerabilities:
+      - name: T1213.002    # Data from Information Repositories
+        exploitability: 0.97  # Legitimate database access
+        detection_prob: 0.05  # Normal query patterns
+        noise_level: 0.05
+      - name: T1560.001    # Archive Collected Data
+        exploitability: 0.95  # Standard tools available
+        detection_prob: 0.10  # Some archive monitoring
+        noise_level: 0.05
+      - name: T1119        # Automated Collection
+        exploitability: 0.98  # Scripted queries normal
+        detection_prob: 0.05  # Automated access expected
+        noise_level: 0.05
+    security_controls:
+      edr: 0.00      # No EDR blocking for legitimate user
+      firewall: 0.00 # No network blocking
+      logging: 0.05  # Minimal database access logs
+      dlp: 0.05      # Minimal data movement monitoring
+      mfa: 0.00      # Already authenticated
+      
+  # Shared Network Resources - Corporate file repositories
+  - id: SharedDrives_Corporate
+    value: 6.0
+    vulnerabilities:
+      - name: T1039        # Data from Network Shared Drive
+        exploitability: 0.98  # Authorized network access
+        detection_prob: 0.05  # Normal file share activity
+        noise_level: 0.05
+      - name: T1083        # File and Directory Discovery
+        exploitability: 0.98  # Normal file enumeration
+        detection_prob: 0.05  # Standard IT activity
+        noise_level: 0.05
+      - name: T1005        # Data from Local System
+        exploitability: 0.95  # Copy documents normally
+        detection_prob: 0.10  # Some document access monitoring
+        noise_level: 0.10
+    security_controls:
+      edr: 0.00      # No EDR blocking for legitimate file access
+      firewall: 0.00 # No network restrictions
+      logging: 0.05  # Minimal file share logging
+      dlp: 0.05      # Minimal document movement monitoring
+      mfa: 0.00      # Already authenticated
+
+  # Exfiltration Channels - Personal cloud storage services
+  - id: PersonalCloudStorage
+    value: 3.0
+    vulnerabilities:
+      - name: T1567.002    # Exfiltration to Cloud Storage
+        exploitability: 0.90  # Personal accounts accessible
+        detection_prob: 0.15  # Some cloud monitoring
+        noise_level: 0.20
+      - name: T1041        # Exfiltration Over C2 Channel
+        exploitability: 0.95  # Personal email accessible
+        detection_prob: 0.10  # Limited email monitoring
+        noise_level: 0.15
+    security_controls:
+      edr: 0.00      # No control over personal accounts
+      firewall: 0.05 # Minimal web filtering
+      logging: 0.10  # Some network activity logging
+      dlp: 0.20      # DLP targets external uploads
+      mfa: 0.00      # Personal accounts
+
+  # Physical Exfiltration Channel - Removable media
+  - id: RemovableMedia_USB
+    value: 2.0
+    vulnerabilities:
+      - name: T1052.001    # Exfiltration Over Physical Medium
+        exploitability: 0.98  # USB works unless explicitly blocked
+        detection_prob: 0.05  # Minimal USB monitoring
+        noise_level: 0.10
+      - name: T1200        # Hardware Additions
+        exploitability: 0.98  # Easy USB insertion
+        detection_prob: 0.05  # Minimal device connection monitoring
+        noise_level: 0.10
+    security_controls:
+      edr: 0.00      # No USB control
+      firewall: 0.00 # No network-based control
+      logging: 0.05  # Minimal device logging
+      dlp: 0.10      # Some USB data transfer monitoring
+      mfa: 0.00      # Physical device
+
+nodes:
+  # Additional nodes to reach exactly 33.5 total value for 30% target calculation
+  - id: EmailServer_Internal
+    value: 0.0  # Zero value - just for network topology
+    vulnerabilities:
+      - name: T1114.002    # Email Collection (Remote)
+        exploitability: 0.90  # Email access available
+        detection_prob: 0.15  # Some bulk access monitoring
+        noise_level: 0.15
+      - name: T1087.002    # Account Discovery (Domain)
+        exploitability: 0.95  # Normal admin queries
+        detection_prob: 0.10  # Standard enumeration
+        noise_level: 0.10
+    security_controls:
+      edr: 0.00      # No blocking for email access
+      firewall: 0.00 # Internal network access
+      logging: 0.10  # Some email access logging
+      dlp: 0.05      # Minimal email content monitoring
+      mfa: 0.00      # Already authenticated
+
+# Network topology reflecting legitimate access paths
+edges:
+  - [DeveloperWorkstation_Primary, SourceCodeRepository_Enterprise]
+  - [DeveloperWorkstation_Primary, CustomerDatabase_Production]
+  - [DeveloperWorkstation_Primary, SharedDrives_Corporate]
+  - [DeveloperWorkstation_Primary, EmailServer_Internal]
+  - [DeveloperWorkstation_Primary, PersonalCloudStorage]
+  - [DeveloperWorkstation_Primary, RemovableMedia_USB]
+  - [SourceCodeRepository_Enterprise, PersonalCloudStorage]
+  - [CustomerDatabase_Production, PersonalCloudStorage]
+  - [SharedDrives_Corporate, RemovableMedia_USB]
+
+entry_points:
+  - DeveloperWorkstation_Primary
+
+# Target value for exactly 30%: 10.0 out of 33.5 total = 29.9%
+target_value: 10.0
+
+# Network topology visualization for analysis and documentation
+# ┌─────────────────┐
+# │DeveloperWorksta │ (Insider's Legitimate Access)
+# │  Primary(5.0)   │
+# └─────────────────┘
+#          │
+#    ┌─────┼─────┬─────────┐
+#    ▼     ▼     ▼         ▼
+# ┌─────┐┌─────┐┌──────┐┌──────┐
+# │SrcCd││CustD││Shared││Email │
+# │(9.0)││(8.5)││(6.0) ││(4.0) │
+# └─────┘└─────┘└──────┘└──────┘
+#    │     │      │        
+#    ▼     ▼      ▼        
+# ┌─────────────────┐┌─────────────────┐
+# │PersonalCloudStor││RemovableMedia   │
+# │     (3.0)       ││USB(2.0)         │
+# └─────────────────┘└─────────────────┘
+
+training_config:
+  description: "Malicious insider intellectual property theft - MINIMAL SECURITY MODEL"
+  difficulty: "beginner"
+  attack_type: "insider_threat"
+  
+  # Modifications applied to achieve 30% Red win rate
+  modifications_applied:
+    - "Set exploitability to 0.95-0.99 for legitimate access advantage"
+    - "Reduced detection_prob to 0.05-0.15 for behavioral monitoring only"
+    - "Set most security controls to 0.00 for authenticated users"
+    - "Target value set to 10.0 for exactly 30% of total network value"
+    - "Minimal DLP/logging only where absolutely necessary"
+  
+  data_sources:
+    - "CISA: Insider Threat Mitigation Guide"
+    - "Verizon DBIR: Insider Threat Statistics"
+    - "CERT: Common Sense Guide to Mitigating Insider Threats"
+    - "Snowden case study: legitimate access exploitation"
+    - "Carnegie Mellon CERT Insider Threat Research"
+  
+  validation_criteria:
+    exploitability_range: [0.90, 0.99]     # Very high for legitimate access
+    detection_range: [0.05, 0.15]          # Very low for authorized user
+    security_control_range: [0.00, 0.20]   # Minimal control effectiveness
+    target_percentage: 29.9                # Exactly 30% target
+  
+  attack_scenarios:
+    primary: "Legitimate developer systematically collecting intellectual property"
+    secondary: "Source code repository cloning and customer data extraction"
+    tertiary: "Multi-channel exfiltration via cloud storage and removable media"
+  
+  defensive_objectives:
+    detection: "Identify unusual data access patterns through behavioral analysis"
+    containment: "Prevent bulk exfiltration through data loss prevention"
+    prevention: "Monitor privileged user activity for anomalous behavior"
+  
+  # Expected outcomes with minimal security model
+  expected_red_win_rate: 0.30       # 30% target with legitimate access
+  expected_blue_win_rate: 0.70      # 70% through behavioral monitoring
+  expected_training_episodes: 500   # Simple objectives enable faster learning
+  
+  special_mechanics:
+    legitimate_access: true         # Authorized user with valid credentials
+    minimal_security_model: true    # Security controls don't block legitimate users
+    behavioral_detection_only: true # Detection relies only on behavioral analysis
+    gradual_collection: true        # Avoid suspicion through slow data gathering
+    
+  insider_characteristics:
+    motivation: "financial_gain"
+    access_level: "privileged_developer"
+    technical_skill: "high"
+    insider_knowledge: "extensive"
+    security_bypass: "legitimate_credentials"

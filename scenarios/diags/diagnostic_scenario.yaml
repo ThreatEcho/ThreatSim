@@ -1,0 +1,49 @@
+# File: scenarios/diagnostic_extreme.yaml
+# Purpose: EXTREME diagnostic test - if Red can't win here, environment is broken
+# 
+# Copyright (c) 2025 ThreatEcho
+# Licensed under the GNU General Public License v3.0
+# See LICENSE file for details.
+
+nodes:
+  - id: EasyTarget
+    value: 10.0  # Very high value
+    vulnerabilities:
+      - name: T1566.001        # Spearphishing
+        exploitability: 0.99     # 99% success rate
+        detection_prob: 0.01     # 1% detection
+        noise_level: 0.01        # 1% noise
+      - name: T1059.001        # PowerShell
+        exploitability: 0.99     # 99% success rate
+        detection_prob: 0.01     # 1% detection
+        noise_level: 0.01        # 1% noise
+      - name: T1005            # Data Collection
+        exploitability: 0.99     # 99% success rate
+        detection_prob: 0.01     # 1% detection
+        noise_level: 0.01        # 1% noise
+    security_controls:
+      edr: 0.01                 # 1% effectiveness
+      firewall: 0.01            # 1% effectiveness
+      logging: 0.01             # 1% effectiveness
+      dlp: 0.01                 # 1% effectiveness
+      mfa: 0.01                 # 1% effectiveness
+
+edges: []  # No network complexity
+
+entry_points:
+  - EasyTarget
+
+target_value: 3.0  # Only need 30% of 10.0 = very easy target
+
+training_config:
+  description: "Extreme diagnostic test - Red should win 90%+ of episodes"
+  difficulty: "diagnostic"
+  attack_type: "environment_test"
+  expected_red_win_rate: 0.95
+  
+  validation_criteria:
+    exploitability_range: [0.95, 0.99]
+    detection_range: [0.01, 0.05]
+    target_percentage: 30.0
+    
+  diagnostic_purpose: "If Red win rate < 80%, environment logic is broken"

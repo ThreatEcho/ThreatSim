@@ -1,0 +1,218 @@
+# File: scenarios/financial_crime_scenario.yaml
+# Description: Business Email Compromise leading to wire fraud
+# Purpose: Financial crime simulation for cybersecurity training with social engineering focus
+#
+# Copyright (c) 2025 ThreatEcho
+# Licensed under the GNU General Public License v3.0
+# See LICENSE file for details.
+
+# Data Sources: FBI IC3 BEC reports, TheDFIRReport BazarCall campaigns, FS-ISAC bulletins
+# Difficulty: Intermediate (34% target, social engineering emphasis)
+# Scenario Type: Business Email Compromise with wire fraud targeting
+
+nodes:
+  # Social Engineering Entry Point - Executive targeting
+  - id: CFO_Workstation
+    value: 5.0
+    vulnerabilities:
+      - name: T1566.004    # Spearphishing Voice (BazarCall)
+        exploitability: 0.70  # Phone-based social engineering highly effective
+        detection_prob: 0.25  # Human factor difficult to detect automatically
+        noise_level: 0.15
+      - name: T1204.001    # User Execution (Malicious File)
+        exploitability: 0.75  # Executive pressured by "urgent" social engineering
+        detection_prob: 0.40  # User training vs sophisticated social pressure
+        noise_level: 0.30
+    security_controls:
+      edr: 0.50
+      firewall: 0.30
+      logging: 0.50
+      dlp: 0.20
+      mfa: 0.10
+
+  # Email Infrastructure Compromise - Executive communications
+  - id: EmailServer_Executive
+    value: 6.0
+    vulnerabilities:
+      - name: T1555.003    # Credentials from Web Browsers
+        exploitability: 0.65  # Browser credential harvesting techniques
+        detection_prob: 0.55  # Process monitoring may detect credential access
+        noise_level: 0.35
+      - name: T1078.004    # Cloud Accounts (O365)
+        exploitability: 0.60  # Office 365 compromise and account takeover
+        detection_prob: 0.70  # Unusual login patterns effectively detected
+        noise_level: 0.50
+      - name: T1114.002    # Email Collection (Remote)
+        exploitability: 0.70  # Monitor financial communications and patterns
+        detection_prob: 0.50  # Email forwarding rules detection varies
+        noise_level: 0.30
+    security_controls:
+      edr: 0.50
+      firewall: 0.20
+      logging: 0.50
+      dlp: 0.10
+      mfa: 0.10
+
+  # Banking System Access - Financial transaction systems
+  - id: BankingPortal
+    value: 8.0
+    vulnerabilities:
+      - name: T1185        # Browser Session Hijacking
+        exploitability: 0.50  # Banking session cookie theft techniques
+        detection_prob: 0.60  # Geographic anomaly detection systems
+        noise_level: 0.40
+      - name: T1056.001    # Keylogging
+        exploitability: 0.65  # Capture banking credentials and authentication
+        detection_prob: 0.45  # Keystroke analysis capabilities improving
+        noise_level: 0.25
+    security_controls:
+      edr: 0.60
+      firewall: 0.50
+      logging: 0.50
+      dlp: 0.20
+      mfa: 0.20
+
+  # Wire Transfer System (Crown Jewel) - Primary target for fraud
+  - id: WireTransferSystem
+    value: 10.0
+    vulnerabilities:
+      - name: T1565.001    # Data Manipulation
+        exploitability: 0.45  # Modify wire transfer instructions and recipients
+        detection_prob: 0.75  # Financial controls and dual approval processes
+        noise_level: 0.55
+      - name: T1020        # Automated Exfiltration (Funds)
+        exploitability: 0.40  # Initiate fraudulent wire transfers
+        detection_prob: 0.80  # Transaction monitoring and fraud detection systems
+        noise_level: 0.60
+    security_controls:
+      edr: 0.60
+      firewall: 0.50
+      logging: 0.50
+      dlp: 0.20
+      mfa: 0.20
+
+  # Finance Team Communication Hub - Payment process monitoring
+  - id: EmailServer_Finance
+    value: 4.0
+    vulnerabilities:
+      - name: T1114.002    # Email Collection
+        exploitability: 0.70  # Monitor payment discussions and vendor communications
+        detection_prob: 0.50  # Email access monitoring implementation varies
+        noise_level: 0.30
+      - name: T1187        # Forced Authentication (NTLM Relay)
+        exploitability: 0.55  # Network authentication attacks for lateral access
+        detection_prob: 0.65  # Authentication monitoring and alerting
+        noise_level: 0.45
+    security_controls:
+      edr: 0.40
+      firewall: 0.20
+      logging: 0.40
+      dlp: 0.20
+      mfa: 0.20
+
+  # External Vendor Impersonation - Social engineering infrastructure
+  - id: FakeVendorPortal
+    value: 2.0
+    vulnerabilities:
+      - name: T1036.005    # Masquerading (Legitimate Name)
+        exploitability: 0.80  # Convincing vendor impersonation tactics
+        detection_prob: 0.30  # Domain reputation checking implementation gaps
+        noise_level: 0.20
+      - name: T1583.006    # Acquire Infrastructure (Web Services)
+        exploitability: 0.75  # Fake payment portals and vendor websites
+        detection_prob: 0.35  # New domains receive less security scrutiny
+        noise_level: 0.25
+    security_controls:
+      edr: 0.40
+      firewall: 0.20
+      logging: 0.50
+      dlp: 0.20
+      mfa: 0.20
+
+# Network topology optimized for BEC attack progression
+edges:
+  # Initial compromise path from executive to email infrastructure
+  - [CFO_Workstation, EmailServer_Executive]
+  
+  # Email infrastructure to banking systems access
+  - [EmailServer_Executive, BankingPortal]
+  - [BankingPortal, WireTransferSystem]
+  
+  # Lateral movement in finance infrastructure for intelligence gathering
+  - [CFO_Workstation, EmailServer_Finance]
+  - [EmailServer_Executive, EmailServer_Finance]
+  
+  # External attack infrastructure for vendor impersonation
+  - [CFO_Workstation, FakeVendorPortal]
+  
+  # Alternative attack path through finance team communications
+  - [EmailServer_Finance, BankingPortal]
+
+# High-value executive entry point characteristic of BEC attacks
+entry_points:
+  - CFO_Workstation
+
+# Target value: 12.0 out of 35.0 total network value = 34% (focused financial impact)
+target_value: 12.0
+
+# Network topology visualization for analysis and documentation
+# ┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
+# │ CFO_Workstation │───▶│EmailServer_Exec │───▶│  BankingPortal  │
+# │     (5.0)       │     │     (6.0)       │     │     (8.0)       │
+# └─────────────────┘     └─────────────────┘     └─────────────────┘
+#          │                       │                       │
+#          │                       ▼                       ▼
+#          │            ┌─────────────────┐    ┌─────────────────┐
+#          │            │EmailServer_Fin  │    │WireTransferSys  │
+#          │            │     (4.0)       │    │    (10.0)       │
+#          │            └─────────────────┘    └─────────────────┘
+#          │                       │                       ▲
+#          │                       └───────────────────────┘
+#          ▼
+# ┌─────────────────┐
+# │FakeVendorPortal │
+# │     (2.0)       │
+# └─────────────────┘
+
+# Training configuration with comprehensive validation parameters
+training_config:
+  description: "Business Email Compromise with wire fraud targeting"
+  difficulty: "intermediate"
+  attack_type: "financial_crime"
+  
+  # Authoritative data sources for parameter validation
+  data_sources:
+    - "FBI IC3 2023 Business Email Compromise Report"
+    - "TheDFIRReport: BazarCall to Conti Ransomware"
+    - "FS-ISAC: Financial Fraud Threat Intelligence"
+    - "ACFE 2022 Report to the Nations on Occupational Fraud"
+  
+  # Scientific validation criteria for scenario realism
+  validation_criteria:
+    exploitability_range: [0.40, 0.80]     # Social engineering emphasis in attacks
+    detection_range: [0.25, 0.80]          # Human factor variability in detection
+    security_control_range: [0.30, 0.98]   # Financial vs general system security
+    target_percentage: 34.3                # High-value financial targeting approach
+  
+  # Primary attack progression scenarios
+  attack_scenarios:
+    primary: "BazarCall social engineering to CFO workstation compromise"
+    secondary: "Email infrastructure compromise for payment monitoring"
+    tertiary: "Banking session hijacking leading to wire fraud"
+  
+  # Defensive response objectives and success metrics
+  defensive_objectives:
+    detection: "Identify social engineering within 2 hours"
+    containment: "Prevent unauthorized financial transactions"
+    prevention: "Block 70%+ of email-based financial fraud attempts"
+  
+  # Training parameters derived from empirical BEC analysis
+  expected_red_win_rate: 0.34       # 34% reflecting sophisticated BEC success rates
+  expected_training_episodes: 900   # Human factor variability requires more episodes
+  
+  # BEC-specific operational characteristics
+  special_mechanics:
+    social_engineering: true        # Heavy reliance on human factors
+    time_sensitive: true           # Financial deadlines create decision pressure
+    regulatory_compliance: true    # Banking regulations affect detection capabilities
+    economic_impact: true         # Direct financial loss measurement

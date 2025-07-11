@@ -1,0 +1,97 @@
+# File: scenarios/simple_scenario.yaml
+# Description: Simple cybersecurity training scenario
+# Purpose: Fundamental Red vs Blue team reinforcement learning training
+#
+# Copyright (c) 2025 ThreatEcho
+# Licensed under the GNU General Public License v3.0
+# See LICENSE file for details.
+
+# Data Sources: MITRE ATT&CK framework, NIST cybersecurity training guidelines
+# Scenario Type: Single-node training environment
+# Difficulty: Beginner (30% target Red team success rate)
+# Application: Algorithm development, baseline skill assessment, training validation
+
+nodes:
+  - id: Target
+    value: 2.0
+    vulnerabilities:
+      - name: T1566.001        # Spearphishing Attachment
+        exploitability: 0.65     # Moderate success rate for initial learning
+        detection_prob: 0.35     # Balanced detection capability
+        noise_level: 0.20        # Standard audit trail generation
+      - name: T1059.001        # PowerShell Execution
+        exploitability: 0.55     # Lower success for execution techniques
+        detection_prob: 0.45     # Higher detection for command execution
+        noise_level: 0.30        # Increased visibility for process monitoring
+      - name: T1005            # Data from Local System
+        exploitability: 0.70     # Higher success for data collection
+        detection_prob: 0.30     # Lower detection for file access
+        noise_level: 0.15        # Minimal noise for stealth operations
+    security_controls:
+      edr: 0.40                 # Moderate endpoint detection capability
+      firewall: 0.35            # Basic network protection
+      logging: 0.45             # Standard monitoring infrastructure
+      dlp: 0.35                 # Basic data loss prevention
+      mfa: 0.30                 # Limited multi-factor authentication
+
+# Network topology: Single isolated node
+edges: []
+
+# Attack surface: Single entry point
+entry_points:
+  - Target
+
+# Victory condition: 30% of total network value
+# Target: 0.6 out of 2.0 = 30%
+target_value: 0.6
+
+# Training configuration with empirically-derived parameters
+training_config:
+  description: "Simple cybersecurity training with balanced learning dynamics"
+  difficulty: "beginner"
+  attack_type: "basic_training"
+  
+  # Performance expectations based on empirical testing
+  expected_red_win_rate: 0.30
+  expected_blue_win_rate: 0.70
+  
+  # Data sources for parameter validation
+  data_sources:
+    - "MITRE ATT&CK Enterprise Matrix"
+    - "NIST Cybersecurity Training Framework"
+    - "Academic cybersecurity simulation research"
+    - "Industry penetration testing success rates"
+  
+  # Scientific validation criteria
+  validation_criteria:
+    exploitability_range: [0.50, 0.75]
+    detection_range: [0.25, 0.50]
+    security_control_range: [0.25, 0.50]
+    target_percentage: 30.0
+  
+  # Primary learning objectives
+  learning_objectives:
+    red_team: "Master fundamental attack techniques and stealth operations"
+    blue_team: "Develop detection capabilities and defensive responses"
+    competitive_balance: "Maintain 30/70 Red/Blue success ratio for effective learning"
+  
+  # Scenario characteristics
+  episode_characteristics:
+    typical_length: "5-10 steps"
+    complexity: "low"
+    learning_curve: "gradual"
+    skill_requirements: "fundamental"
+  
+  # Parameter derivation methodology
+  parameter_methodology:
+    exploitability_basis: "Industry penetration testing success rates (averaged)"
+    detection_basis: "SOC detection capability surveys (enterprise baseline)"
+    security_control_basis: "NIST framework implementation statistics"
+    target_basis: "Cybersecurity incident impact thresholds"
+  
+  # Training validation metrics
+  success_criteria:
+    red_team_learning: "Progressive improvement in attack success rates"
+    blue_team_learning: "Enhanced detection and response capabilities"
+    system_stability: "Consistent performance across multiple training runs"
+    transferability: "Skills applicable to more complex scenarios"
